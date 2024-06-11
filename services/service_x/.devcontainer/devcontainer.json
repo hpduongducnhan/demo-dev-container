@@ -1,0 +1,41 @@
+{
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
+    "forwardPorts": [
+        7000,
+        7001,
+        7002
+    ],
+    "runArgs": [
+        "-p",
+        "7000:7000",
+        "-p",
+        "7001:7001",
+        "-p",
+        "7002:7002",
+        "--cpus=1",
+        "--memory=2G"
+    ],
+    "containerEnv": {
+        "http_proxy": "http://proxy.fpt.vn:80",
+        "https_proxy": "http://proxy.fpt.vn:80",
+        "no_proxy": "localhost,127.0.0.1"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.autopep8"
+            ],
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+    "mounts": [
+        "type=bind,source=${localWorkspaceFolder}/../../core,target=${containerWorkspaceFolder}/core"
+    ],
+    "postStartCommand": "cd ${containerWorkspaceFolder} | poetry install "
+}

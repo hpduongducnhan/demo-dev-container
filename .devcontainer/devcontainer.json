@@ -1,0 +1,39 @@
+{
+    // "image": "mcr.microsoft.com/devcontainers/python:3.10",
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
+    "forwardPorts": [
+        5000,
+        5001,
+        5012
+    ],
+    "runArgs": [
+        "-p",
+        "5000:5000",
+        "-p",
+        "5001:5001",
+        "-p",
+        "5012:5012",
+        "--cpus=2",
+        "--memory=2G"
+    ],
+    "containerEnv": {
+        "http_proxy": "http://proxy.fpt.vn:80",
+        "https_proxy": "http://proxy.fpt.vn:80",
+        "no_proxy": "localhost,127.0.0.1"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.autopep8"
+            ],
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+    "postStartCommand": "cd ${containerWorkspaceFolder} | poetry install "
+}
